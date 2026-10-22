@@ -1,4 +1,4 @@
-package com.example.trainingproject.theme
+package com.example.trainingproject.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

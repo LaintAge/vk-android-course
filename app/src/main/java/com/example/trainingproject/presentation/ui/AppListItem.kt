@@ -1,11 +1,10 @@
-package com.example.trainingproject.applist
+package com.example.trainingproject.presentation.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -20,17 +19,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.trainingproject.theme.VkEducationTheme
+import com.example.trainingproject.presentation.data.App
+import com.example.trainingproject.presentation.data.AppsData
+import com.example.trainingproject.presentation.data.Category
+import com.example.trainingproject.presentation.theme.VkEducationTheme
 
 @Composable
 fun AppListItem(
-    app: AppInfo,
     modifier: Modifier = Modifier,
+    app: App,
+    onClick: () -> Unit = {},
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier,
+        modifier = modifier.clickable{ onClick() },
     ) {
         AsyncImage(
             model = app.iconUrl,
@@ -57,7 +60,7 @@ fun AppListItem(
             )
             CategoryItem(app.category)
             Text(
-                text = app.shortDescription,
+                text = app.description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
                 maxLines = 2,
@@ -70,14 +73,9 @@ fun AppListItem(
 @Preview
 @Composable
 private fun Preview() {
-    val temp = AppInfo(
-        "url",
-        "App",
-        "description description description description description",
-        "shooter"
-    )
+    val temp = AppsData.apps[0]
 
     VkEducationTheme {
-        AppListItem(temp)
+        AppListItem(app = temp)
     }
 }

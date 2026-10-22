@@ -1,4 +1,4 @@
-package com.example.trainingproject.applist
+package com.example.trainingproject.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -14,12 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.trainingproject.theme.RuStoreBlue
-import com.example.trainingproject.theme.VkEducationTheme
 import com.example.trainingproject.R
+import com.example.trainingproject.presentation.theme.RuStoreBlue
+import com.example.trainingproject.presentation.theme.VkEducationTheme
 
 @Composable
-internal fun Toolbar(
+internal fun AppListToolbar(
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -43,6 +43,6 @@ internal fun Toolbar(
 @Composable
 private fun Preview() {
     VkEducationTheme {
-        Toolbar()
+        AppListToolbar()
     }
 }

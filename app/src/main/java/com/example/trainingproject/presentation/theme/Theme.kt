@@ -1,4 +1,4 @@
-package com.example.trainingproject.theme
+package com.example.trainingproject.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
