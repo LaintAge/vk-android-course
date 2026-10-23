@@ -9,8 +9,10 @@
     <string name="app_details_size">Размер</string>
 
     <string name="install">Установить</string>
+    <string name="app_details_similar_apps">Вам может понравиться</string>
 
     <string name="app_details_screenshots">Скриншоты</string>
+    <string name="app_details_download">Скачать</string>
 
     <string name="app_details_description">Описание приложения</string>
     <string name="app_details_read_more">Читать подробнее</string>
@@ -18,5 +20,8 @@
     <string name="app_details_developer">Разработчик</string>
     <string name="showcase_title">Витрина</string>
 
-    <string name="under_developement">В процессе разработки</string>
+    <string name="under_development">В процессе разработки</string>
+
+    <string name="app_details_error">Произошла непредвиденная ошибка</string>
+    <string name="app_details_error_refresh">Перезагрузить</string>
 </resources>

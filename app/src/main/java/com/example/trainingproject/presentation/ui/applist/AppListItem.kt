@@ -1,4 +1,4 @@
-package com.example.trainingproject.presentation.ui
+package com.example.trainingproject.presentation.ui.applist
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,15 +19,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.trainingproject.presentation.data.App
-import com.example.trainingproject.presentation.data.AppsData
-import com.example.trainingproject.presentation.data.Category
+import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.appdetails.Category
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 
 @Composable
 fun AppListItem(
     modifier: Modifier = Modifier,
-    app: App,
+    app: ShowcaseApp,
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -73,9 +72,15 @@ fun AppListItem(
 @Preview
 @Composable
 private fun Preview() {
-    val temp = AppsData.apps[0]
+    val app = ShowcaseApp(
+            id = "similar-app",
+            name = "Гильдия Героев: Экшен ММО РПГ",
+            iconUrl = "https://static.rustore.ru/imgproxy/APsbtHxkVa4MZ0DXjnIkSwFQ_KVIcqHK9o3gHY6pvOQ/preset:web_app_icon_62/plain/https://static.rustore.ru/apk/393868735/content/ICON/3f605e3e-f5b3-434c-af4d-77bc5f38820e.png@webp",
+            category = Category.GAME,
+            description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        )
 
     VkEducationTheme {
-        AppListItem(app = temp)
+        AppListItem(app = app)
     }
 }

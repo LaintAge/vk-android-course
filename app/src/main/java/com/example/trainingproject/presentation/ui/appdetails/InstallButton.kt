@@ -1,4 +1,4 @@
-package com.example.trainingproject.presentation.ui
+package com.example.trainingproject.presentation.ui.appdetails
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -7,6 +7,10 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
 }
 
+hilt {
+    enableAggregatingTask = false
+}
+
 android {
     namespace = "com.example.trainingproject"
     compileSdk = 36

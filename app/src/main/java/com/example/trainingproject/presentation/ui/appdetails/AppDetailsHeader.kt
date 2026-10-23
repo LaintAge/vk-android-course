@@ -1,4 +1,4 @@
-package com.example.trainingproject.presentation.ui
+package com.example.trainingproject.presentation.ui.appdetails
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -25,14 +25,14 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import kotlin.math.roundToInt
 import com.example.trainingproject.R
-import com.example.trainingproject.presentation.data.App
-import com.example.trainingproject.presentation.data.AppsData
-import com.example.trainingproject.presentation.data.Category
+import com.example.trainingproject.domain.appdetails.AppDetails
+import com.example.trainingproject.domain.appdetails.Category
 import com.example.trainingproject.presentation.theme.VkEducationTheme
+import com.example.trainingproject.presentation.ui.applist.CategoryItem
 
 @Composable
 fun AppDetailsHeader(
-    app: App,
+    appDetails: AppDetails,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -40,7 +40,7 @@ fun AppDetailsHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
-            model = app.iconUrl,
+            model = appDetails.iconUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -49,23 +49,23 @@ fun AppDetailsHeader(
         )
         Spacer(Modifier.width(16.dp))
         Column {
-            CategoryItem(app.category)
+            CategoryItem(appDetails.category)
             Spacer(Modifier.height(4.dp))
             Text(
-                text = app.name,
+                text = appDetails.name,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = app.developer,
+                text = appDetails.developer,
                 fontSize = 12.sp,
             )
             Spacer(Modifier.height(4.dp))
             Row {
                 Column(Modifier.width(IntrinsicSize.Max)) {
                     Text(
-                        text = "${app.ageRating}+",
+                        text = "${appDetails.ageRating}+",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -74,7 +74,7 @@ fun AppDetailsHeader(
                 }
                 Spacer(Modifier.width(12.dp))
                 Column {
-                    Text(text = "${app.size.roundToInt()} MB")
+                    Text(text = "${appDetails.size.roundToInt()} MB")
                     Spacer(Modifier.height(4.dp))
                     Text(text = stringResource(R.string.app_details_size))
                 }
@@ -90,9 +90,25 @@ fun AppDetailsHeader(
 @Preview
 @Composable
 private fun Preview() {
-    val app = AppsData.apps[0]
+    val appDetails = AppDetails(
+        id = "fa2e31b8-1234-4cf7-9914-108a170a1b01",
+        name = "Гильдия Героев: Экшен ММО РПГ",
+        developer = "VK Play",
+        category = Category.GAME,
+        ageRating = 12,
+        size = 223.7f,
+        screenshotUrlList = listOf(
+            "https://static.rustore.ru/imgproxy/-y8kd-4B6MQ-1OKbAbnoAIMZAzvoMMG9dSiHMpFaTBc/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/dfd33017-e90d-4990-aa8c-6f159d546788.jpg@webp",
+            "https://static.rustore.ru/imgproxy/dZCvNtRKKFpzOmGlTxLszUPmwi661IhXynYZGsJQvLw/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/60ec4cbc-dcf6-4e69-aa6f-cc2da7de1af6.jpg@webp",
+            "https://static.rustore.ru/imgproxy/g5whSI1uNqaL2TUO7TFfM8M63vXpWXNCm2vlX4Ahvc4/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/c2dde8bc-c4ab-482a-80a5-2789149f598d.jpg@webp",
+            "https://static.rustore.ru/imgproxy/TjeurtC7BczOVJt74XhjGYuQnG1l4rx6zpDqyMb00GY/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/08318f76-7a9c-43aa-b4a7-1aa878d00861.jpg@webp",
+        ),
+        iconUrl = "https://static.rustore.ru/imgproxy/APsbtHxkVa4MZ0DXjnIkSwFQ_KVIcqHK9o3gHY6pvOQ/preset:web_app_icon_62/plain/https://static.rustore.ru/apk/393868735/content/ICON/3f605e3e-f5b3-434c-af4d-77bc5f38820e.png@webp",
+        description = "Легендарный рейд героев в Фэнтези РПГ. Станьте героем гильдии и зразите мастера подземелья!"
+
+    )
 
     VkEducationTheme {
-        AppDetailsHeader(app = app, modifier = Modifier.fillMaxWidth())
+        AppDetailsHeader(appDetails = appDetails, modifier = Modifier.fillMaxWidth())
     }
 }

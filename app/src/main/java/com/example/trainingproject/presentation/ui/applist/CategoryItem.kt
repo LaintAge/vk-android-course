@@ -1,4 +1,4 @@
-package com.example.trainingproject.presentation.ui
+package com.example.trainingproject.presentation.ui.applist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.trainingproject.R
-import com.example.trainingproject.presentation.data.Category
+import com.example.trainingproject.domain.appdetails.Category
 
 @Composable
 private fun getCategoryText(category: Category): String = when (category) {

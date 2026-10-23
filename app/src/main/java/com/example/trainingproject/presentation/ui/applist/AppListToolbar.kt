@@ -1,6 +1,7 @@
-package com.example.trainingproject.presentation.ui
+package com.example.trainingproject.presentation.ui.applist
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +22,7 @@ import com.example.trainingproject.presentation.theme.VkEducationTheme
 @Composable
 internal fun AppListToolbar(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -29,6 +31,7 @@ internal fun AppListToolbar(
             .background(color = RuStoreBlue)
             .height(32.dp)
             .padding(horizontal = 16.dp)
+            .clickable{ onClick() }
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_logo),
@@ -43,6 +46,6 @@ internal fun AppListToolbar(
 @Composable
 private fun Preview() {
     VkEducationTheme {
-        AppListToolbar()
+        AppListToolbar(onClick = {})
     }
 }
