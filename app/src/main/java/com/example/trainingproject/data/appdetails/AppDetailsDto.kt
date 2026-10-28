@@ -1,4 +1,4 @@
-package com.example.trainingproject.data
+package com.example.trainingproject.data.appdetails
 
 import com.example.trainingproject.domain.appdetails.Category
 import kotlinx.serialization.SerialName

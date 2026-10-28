@@ -2,7 +2,7 @@ package com.example.trainingproject.presentation.ui.appdetails
 
 import androidx.compose.runtime.Immutable
 import com.example.trainingproject.domain.appdetails.AppDetails
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.applist.ShowcaseApp
 import com.example.trainingproject.domain.appdetails.SimilarApp
 
 @Immutable

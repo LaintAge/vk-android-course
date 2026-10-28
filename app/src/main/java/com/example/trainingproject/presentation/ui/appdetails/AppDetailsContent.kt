@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trainingproject.domain.appdetails.AppDetails
 import com.example.trainingproject.domain.appdetails.Category
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.applist.ShowcaseApp
 import com.example.trainingproject.domain.appdetails.SimilarApp
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 

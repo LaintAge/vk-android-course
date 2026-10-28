@@ -1,25 +1,15 @@
 package com.example.trainingproject.presentation.ui.applist
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.trainingproject.domain.appdetails.GetAppDetailsUseCase
-import com.example.trainingproject.domain.appdetails.GetShowcaseAppsUseCase
-import com.example.trainingproject.domain.appdetails.GetSimilarAppsUseCase
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
-import com.example.trainingproject.presentation.navigation.DetailDestination
-import com.example.trainingproject.presentation.ui.appdetails.AppDetailsEvent
-import com.example.trainingproject.presentation.ui.appdetails.AppDetailsState
+import com.example.trainingproject.domain.applist.GetShowcaseAppsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.BUFFERED
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
