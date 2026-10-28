@@ -1,4 +1,6 @@
-package com.example.trainingproject.domain.appdetails
+package com.example.trainingproject.domain.applist
+
+import com.example.trainingproject.domain.appdetails.Category
 
 data class ShowcaseApp (
     val id: String,

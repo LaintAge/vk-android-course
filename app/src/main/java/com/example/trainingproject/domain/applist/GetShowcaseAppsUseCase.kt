@@ -1,4 +1,4 @@
-package com.example.trainingproject.domain.appdetails
+package com.example.trainingproject.domain.applist
 
 class GetShowcaseAppsUseCase(
     private val repository: ShowcaseAppsRepository,

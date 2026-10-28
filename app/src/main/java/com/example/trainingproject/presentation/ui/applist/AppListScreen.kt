@@ -3,7 +3,7 @@ package com.example.trainingproject.presentation.ui.applist
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.applist.ShowcaseApp
 
 @Composable
 fun AppListScreen(

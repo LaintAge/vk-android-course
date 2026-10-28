@@ -1,14 +1,11 @@
 package com.example.trainingproject.presentation.ui.appdetails
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.example.trainingproject.domain.appdetails.GetAppDetailsUseCase
-import com.example.trainingproject.domain.appdetails.GetShowcaseAppsUseCase
+import com.example.trainingproject.domain.applist.GetShowcaseAppsUseCase
 import com.example.trainingproject.domain.appdetails.GetSimilarAppsUseCase
-import com.example.trainingproject.presentation.navigation.DetailDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -76,16 +73,17 @@ class AppDetailsViewModel @Inject constructor(
             try {
                 val similarApps = getSimilarAppsUseCase()
                 val showcaseApps = getShowcaseAppsUseCase()
-                getAppDetailsUseCase("fa2e31b8-1234-4cf7-9914-108a170a1b01").collect { appDetails ->
-                    val currentState = _state.value
-                    _state.value = AppDetailsState.Content(
-                        appDetails = appDetails,
-                        similarApps = similarApps,
-                        showcaseApps = showcaseApps,
-                        descriptionCollapsed = (currentState as? AppDetailsState.Content)
-                            ?.descriptionCollapsed ?: false,
-                    )
-                }
+                val appDetails = getAppDetailsUseCase("fa2e31b8-1234-4cf7-9914-108a170a1b01")
+
+                val currentState = _state.value
+                _state.value = AppDetailsState.Content(
+                    appDetails = appDetails,
+                    similarApps = similarApps,
+                    showcaseApps = showcaseApps,
+                    descriptionCollapsed = (currentState as? AppDetailsState.Content)
+                        ?.descriptionCollapsed ?: false,
+                )
+
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
