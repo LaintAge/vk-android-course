@@ -1,8 +1,9 @@
 package com.example.trainingproject.data.appdetails
 
 import com.example.trainingproject.domain.appdetails.AppDetails
+import javax.inject.Inject
 
-class AppDetailsMapper {
+class AppDetailsMapper @Inject constructor() {
     fun toDomain(dto: AppDetailsDto): AppDetails = AppDetails(
         id = dto.id,
         name = dto.name,

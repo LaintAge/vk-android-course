@@ -1,6 +1,7 @@
 package com.example.trainingproject.presentation.ui.appdetails
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trainingproject.domain.appdetails.GetAppDetailsUseCase
@@ -20,6 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val getAppDetailsUseCase: GetAppDetailsUseCase,
     private val getSimilarAppsUseCase: GetSimilarAppsUseCase,
     private val getShowcaseAppsUseCase: GetShowcaseAppsUseCase,
@@ -32,6 +34,8 @@ class AppDetailsViewModel @Inject constructor(
     val events = _events.receiveAsFlow()
 
     private var loadingJob: Job? = null
+
+    private val appId: String = checkNotNull(savedStateHandle["appId"])
 
     init {
         getAppDetails()
@@ -73,7 +77,7 @@ class AppDetailsViewModel @Inject constructor(
             try {
                 val similarApps = getSimilarAppsUseCase()
                 val showcaseApps = getShowcaseAppsUseCase()
-                val appDetails = getAppDetailsUseCase("fa2e31b8-1234-4cf7-9914-108a170a1b01")
+                val appDetails = getAppDetailsUseCase(appId)
 
                 val currentState = _state.value
                 _state.value = AppDetailsState.Content(
