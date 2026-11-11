@@ -16,6 +16,7 @@ fun AppListScreen(
     snackbarHostState: SnackbarHostState,
     onToolbarClick: () -> Unit,
     onAppClick: (ShowcaseApp) -> Unit,
+    getAppsShowcase: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -35,7 +36,7 @@ fun AppListScreen(
 
             is AppListState.Error -> {
                 AppListError(
-                    onRefreshClick = {}, // TODO: Передать функцию обновления данных
+                    onRefreshClick = { getAppsShowcase() },
                     modifier = screenModifier
                 )
             }

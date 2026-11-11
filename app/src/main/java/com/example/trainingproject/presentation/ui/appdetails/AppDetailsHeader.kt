@@ -26,7 +26,6 @@ import coil3.compose.AsyncImage
 import kotlin.math.roundToInt
 import com.example.trainingproject.R
 import com.example.trainingproject.domain.appdetails.AppDetails
-import com.example.trainingproject.domain.appdetails.Category
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 import com.example.trainingproject.presentation.ui.applist.CategoryItem
 
@@ -94,7 +93,7 @@ private fun Preview() {
         id = "fa2e31b8-1234-4cf7-9914-108a170a1b01",
         name = "Гильдия Героев: Экшен ММО РПГ",
         developer = "VK Play",
-        category = Category.GAME,
+        category = "Приложение",
         ageRating = 12,
         size = 223.7f,
         screenshotUrlList = listOf(

@@ -10,5 +10,5 @@ class ShowcaseAppsRepositoryImpl @Inject constructor(
     private val mapper: ShowcaseAppMapper,
 ) : ShowcaseAppsRepository {
     override suspend fun getShowcaseApps(): List<ShowcaseApp> =
-        api.getShowCaseApps().map(mapper::toDomain)
+        api.getShowcaseApps().map(mapper::toDomain)
 }

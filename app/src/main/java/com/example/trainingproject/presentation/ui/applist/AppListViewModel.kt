@@ -44,7 +44,7 @@ class AppListViewModel @Inject constructor(
         }
     }
 
-    private fun getShowcaseApps() {
+    fun getShowcaseApps() {
         loadingJob?.cancel()
         loadingJob = viewModelScope.launch {
             _state.value = AppListState.Loading

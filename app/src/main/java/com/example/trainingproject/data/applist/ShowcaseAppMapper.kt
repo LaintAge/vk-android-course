@@ -7,7 +7,7 @@ class ShowcaseAppMapper @Inject constructor() {
     fun toDomain(dto: ShowcaseAppDto): ShowcaseApp = ShowcaseApp(
         id = dto.id,
         name = dto.name,
-        iconUrl = dto.icon,
+        iconUrl = dto.iconUrl,
         category = dto.category,
         description = dto.description,
     )

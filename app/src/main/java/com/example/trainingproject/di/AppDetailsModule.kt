@@ -31,8 +31,8 @@ abstract class AppDetailsModule {
     companion object {
         @Provides
         @Singleton
-        fun provideAppDetailsApi(): AppDetailsApi { // Убрали параметр retrofit
-            return AppDetailsApi() // Просто создаем класс
+        fun provideAppDetailsApi(retrofit: Retrofit): AppDetailsApi {
+            return retrofit.create(AppDetailsApi::class.java)
         }
 
         @Provides

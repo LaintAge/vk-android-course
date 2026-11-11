@@ -23,17 +23,22 @@ fun AppDetailsScreen(
         modifier = modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
+
+        val screenModifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+
         when (state) {
             is AppDetailsState.Loading -> {
                 AppDetailsLoading(
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = screenModifier
                 )
             }
 
             is AppDetailsState.Error -> {
                 AppDetailsError(
                     onRefreshClick = { getAppDetails() },
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = screenModifier
                 )
             }
 
@@ -47,9 +52,7 @@ fun AppDetailsScreen(
                     onSimilarAppDownloadClick = { showUnderDevelopmentMessage() },
                     onDeveloperClick = showUnderDevelopmentMessage,
                     onAppClick = onAppClick,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
+                    modifier = screenModifier
                 )
             }
         }

@@ -23,8 +23,8 @@ abstract class AppListModule {
     companion object {
         @Provides
         @Singleton
-        fun provideAppListApi(): ShowcaseAppsApi {
-            return ShowcaseAppsApi()
+        fun provideAppListApi(retrofit: Retrofit): ShowcaseAppsApi {
+            return retrofit.create(ShowcaseAppsApi::class.java)
         }
     }
 }

@@ -60,7 +60,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 state = state,
                 snackbarHostState = snackbarHostState,
                 onToolbarClick = { viewModel.onToolbarClicked() },
-                onAppClick = { app -> viewModel.onShowcaseAppClicked(app.id) }
+                onAppClick = { app -> viewModel.onShowcaseAppClicked(app.id) },
+                getAppsShowcase = { viewModel.getShowcaseApps() }
             )
         }
 

@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.trainingproject.R
-import com.example.trainingproject.domain.appdetails.Category
 import com.example.trainingproject.domain.appdetails.SimilarApp
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 

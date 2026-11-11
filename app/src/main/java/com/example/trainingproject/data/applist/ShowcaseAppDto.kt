@@ -1,11 +1,12 @@
 package com.example.trainingproject.data.applist
 
-import com.example.trainingproject.domain.appdetails.Category
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ShowcaseAppDto (
     val id: String,
     val name: String,
-    val icon: String,
-    val category: Category,
+    val iconUrl: String,
+    val category: String,
     val description: String,
 )
