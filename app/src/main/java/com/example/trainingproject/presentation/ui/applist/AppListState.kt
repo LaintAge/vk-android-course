@@ -9,5 +9,6 @@ sealed interface AppListState {
     data object Loading : AppListState
     data class Content(
         val showcaseApps: List<ShowcaseApp>,
+        val ratings: Map<String, Float> = emptyMap(),
     ) : AppListState
 }

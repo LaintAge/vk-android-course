@@ -12,12 +12,14 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.BUFFERED
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
@@ -34,6 +36,7 @@ class AppDetailsViewModel @Inject constructor(
     val events = _events.receiveAsFlow()
 
     private var loadingJob: Job? = null
+    private var installJob: Job? = null
 
     private val appId: String = checkNotNull(savedStateHandle["appId"])
 
@@ -66,6 +69,51 @@ class AppDetailsViewModel @Inject constructor(
             } else {
                 currentState
             }
+        }
+    }
+
+    fun onInstallClick() {
+        val current = _state.value
+        if (current !is AppDetailsState.Content) return
+
+        if (current.installState is InstallState.Installing) {
+            installJob?.cancel()
+            installJob = null
+
+            _state.update {
+                if (it is AppDetailsState.Content) {
+                    it.copy(installState = InstallState.NotInstalled)
+                } else it
+            }
+        } else {
+            installJob = viewModelScope.launch {
+                emulateInstall()
+            }
+        }
+    }
+
+    private suspend fun emulateInstall() {
+        try {
+            for (progress in 0..100 step 5) {
+                _state.update { currentState ->
+                    if (currentState is AppDetailsState.Content) {
+                        currentState.copy(installState = InstallState.Installing(progress))
+                    } else {
+                        currentState
+                    }
+                }
+                delay(150.milliseconds)
+            }
+
+            _state.update { currentState ->
+                if (currentState is AppDetailsState.Content) {
+                    currentState.copy(installState = InstallState.Installed)
+                } else {
+                    currentState
+                }
+            }
+        } catch (e: CancellationException) {
+            throw e
         }
     }
 

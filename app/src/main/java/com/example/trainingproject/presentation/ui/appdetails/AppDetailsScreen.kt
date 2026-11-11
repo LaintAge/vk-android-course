@@ -17,6 +17,8 @@ fun AppDetailsScreen(
     onAppClick: (String) -> Unit,
     showUnderDevelopmentMessage: () -> Unit,
     collapseDescription: () -> Unit,
+    onInstallClick: () -> Unit,
+    onDeleteClick: () -> Unit,
     getAppDetails: () -> Unit,
 ) {
     Scaffold (
@@ -47,7 +49,8 @@ fun AppDetailsScreen(
                     content = state,
                     onBackClick = onBackClick,
                     onShareClick = showUnderDevelopmentMessage,
-                    onInstallClick = showUnderDevelopmentMessage,
+                    onInstallClick = onInstallClick,
+                    onDeleteClick = onDeleteClick,
                     onReadMoreClick = collapseDescription,
                     onSimilarAppDownloadClick = { showUnderDevelopmentMessage() },
                     onDeveloperClick = showUnderDevelopmentMessage,

@@ -26,6 +26,7 @@ fun AppDetailsContent(
     onBackClick: () -> Unit,
     onShareClick: () -> Unit,
     onInstallClick: () -> Unit,
+    onDeleteClick: () -> Unit,
     onReadMoreClick: () -> Unit,
     onDeveloperClick: () -> Unit,
     onSimilarAppDownloadClick: (SimilarApp) -> Unit,
@@ -47,7 +48,9 @@ fun AppDetailsContent(
         )
         Spacer(Modifier.height(16.dp))
         InstallButton(
-            onClick = onInstallClick,
+            onInstallClick = onInstallClick,
+            onDeleteClick = onDeleteClick,
+            installState = content.installState,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -142,6 +145,7 @@ private fun Preview() {
             onBackClick = {},
             onShareClick = {},
             onInstallClick = {},
+            onDeleteClick = {},
             onDeveloperClick = {},
             onSimilarAppDownloadClick = {},
             onAppClick = {},

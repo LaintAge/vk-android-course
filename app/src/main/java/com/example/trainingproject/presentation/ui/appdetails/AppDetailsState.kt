@@ -14,5 +14,13 @@ sealed interface AppDetailsState {
         val similarApps: List<SimilarApp>,
         val showcaseApps: List<ShowcaseApp>,
         val descriptionCollapsed: Boolean,
+        val installState: InstallState = InstallState.NotInstalled
     ) : AppDetailsState
+}
+
+@Immutable
+sealed interface InstallState {
+    data object NotInstalled : InstallState
+    data class Installing(val progress: Int) : InstallState
+    data object Installed : InstallState
 }

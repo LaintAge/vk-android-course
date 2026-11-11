@@ -20,6 +20,7 @@ import com.example.trainingproject.presentation.ui.appdetails.AppDetailsViewMode
 import com.example.trainingproject.presentation.ui.applist.AppListEvent
 import com.example.trainingproject.presentation.ui.applist.AppListScreen
 import com.example.trainingproject.presentation.ui.applist.AppListViewModel
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -47,7 +48,9 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 viewModel.events.collect { event ->
                     when (event) {
                         is AppListEvent.ShowSnackbar -> {
-                            snackbarHostState.showSnackbar(event.message)
+                            launch {
+                                snackbarHostState.showSnackbar(event.message)
+                            }
                         }
                         is AppListEvent.NavigateToDetailApp -> {
                             navController.navigate(DetailDestination(appId = event.appId))
@@ -74,7 +77,9 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 viewModel.events.collect { event ->
                     when (event) {
                         is AppDetailsEvent.UnderDevelopment -> {
-                            snackbarHostState.showSnackbar(underDevelopmentText)
+                            launch {
+                                snackbarHostState.showSnackbar(underDevelopmentText)
+                            }
                         }
                         is AppDetailsEvent.NavigateBack -> {
                             navController.navigateUp()
@@ -94,6 +99,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 showUnderDevelopmentMessage = { viewModel.showUnderDevelopmentMessage() },
                 onAppClick = { appID -> viewModel.onShowcaseAppClicked(appID) },
                 collapseDescription = { viewModel.collapseDescription() },
+                onInstallClick = { viewModel.onInstallClick() },
+                onDeleteClick = { viewModel.showUnderDevelopmentMessage() }
             )
         }
     }

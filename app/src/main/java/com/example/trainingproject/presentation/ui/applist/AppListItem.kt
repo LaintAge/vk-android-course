@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +29,7 @@ import com.example.trainingproject.presentation.theme.VkEducationTheme
 fun AppListItem(
     modifier: Modifier = Modifier,
     app: ShowcaseApp,
+    rating: Float? = null,
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -64,6 +68,25 @@ fun AppListItem(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            if (rating != null) {
+                Row (horizontalArrangement = Arrangement.Center) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = "Rating",
+                        tint = MaterialTheme.colorScheme.inversePrimary,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = rating.toString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            } else {
+                Text(
+                    text = "---",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
@@ -80,6 +103,9 @@ private fun Preview() {
         )
 
     VkEducationTheme {
-        AppListItem(app = app)
+        AppListItem(
+            app = app,
+            onClick = {},
+        )
     }
 }

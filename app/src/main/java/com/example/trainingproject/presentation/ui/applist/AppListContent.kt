@@ -1,6 +1,7 @@
 package com.example.trainingproject.presentation.ui.applist
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ fun AppListContent(
         AppList(
             onAppClick= onAppClick,
             appList = content.showcaseApps,
+            ratings = content.ratings,
             modifier= Modifier
                 .padding(horizontal = 16.dp )
                 .padding(top = 8.dp)

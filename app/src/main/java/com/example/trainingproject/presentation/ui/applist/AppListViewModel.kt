@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trainingproject.domain.applist.GetShowcaseAppsUseCase
+import com.example.trainingproject.domain.applist.LoadRatingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -12,12 +13,14 @@ import kotlinx.coroutines.channels.Channel.Factory.BUFFERED
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AppListViewModel @Inject constructor(
     private val getShowcaseAppsUseCase: GetShowcaseAppsUseCase,
+    private val loadRatingsUseCase: LoadRatingsUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<AppListState>(AppListState.Loading)
@@ -54,12 +57,24 @@ class AppListViewModel @Inject constructor(
                 _state.value = AppListState.Content(
                     showcaseApps = showcaseApps,
                 )
+
+                testRatingLoading(showcaseApps.map { it.id })
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 _state.value = AppListState.Error
                 Log.e("AppListViewModel", "Failed to load app", e)
             }
+        }
+    }
+
+    private suspend fun testRatingLoading(ids: List<String>) {
+        val seqRatings = loadRatingsUseCase.sequentially(ids)
+
+        val parRatings = loadRatingsUseCase.parallel(ids)
+
+        _state.update {
+            if (it is AppListState.Content) it.copy(ratings = parRatings) else it
         }
     }
 }

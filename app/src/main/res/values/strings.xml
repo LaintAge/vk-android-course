@@ -9,6 +9,8 @@
     <string name="app_details_size">Размер</string>
 
     <string name="install">Установить</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отменить</string>
     <string name="app_details_similar_apps">Вам может понравиться</string>
 
     <string name="app_details_screenshots">Скриншоты</string>
