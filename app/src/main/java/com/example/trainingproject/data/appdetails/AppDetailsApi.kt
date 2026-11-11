@@ -1,9 +1,9 @@
-package com.example.trainingproject.data
+package com.example.trainingproject.data.appdetails
 
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface AppApi {
+interface AppDetailsApi {
     @GET("catalog/{id}")
     suspend fun getAppDetails(@Path("id") id: String): AppDetailsDto
 }

@@ -4,25 +4,26 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.example.trainingproject.domain.appdetails.GetAppDetailsUseCase
-import com.example.trainingproject.domain.appdetails.GetShowcaseAppsUseCase
+import com.example.trainingproject.domain.applist.GetShowcaseAppsUseCase
 import com.example.trainingproject.domain.appdetails.GetSimilarAppsUseCase
-import com.example.trainingproject.presentation.navigation.DetailDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.BUFFERED
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class AppDetailsViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val getAppDetailsUseCase: GetAppDetailsUseCase,
     private val getSimilarAppsUseCase: GetSimilarAppsUseCase,
     private val getShowcaseAppsUseCase: GetShowcaseAppsUseCase,
@@ -35,6 +36,9 @@ class AppDetailsViewModel @Inject constructor(
     val events = _events.receiveAsFlow()
 
     private var loadingJob: Job? = null
+    private var installJob: Job? = null
+
+    private val appId: String = checkNotNull(savedStateHandle["appId"])
 
     init {
         getAppDetails()
@@ -68,6 +72,51 @@ class AppDetailsViewModel @Inject constructor(
         }
     }
 
+    fun onInstallClick() {
+        val current = _state.value
+        if (current !is AppDetailsState.Content) return
+
+        if (current.installState is InstallState.Installing) {
+            installJob?.cancel()
+            installJob = null
+
+            _state.update {
+                if (it is AppDetailsState.Content) {
+                    it.copy(installState = InstallState.NotInstalled)
+                } else it
+            }
+        } else {
+            installJob = viewModelScope.launch {
+                emulateInstall()
+            }
+        }
+    }
+
+    private suspend fun emulateInstall() {
+        try {
+            for (progress in 0..100 step 5) {
+                _state.update { currentState ->
+                    if (currentState is AppDetailsState.Content) {
+                        currentState.copy(installState = InstallState.Installing(progress))
+                    } else {
+                        currentState
+                    }
+                }
+                delay(150.milliseconds)
+            }
+
+            _state.update { currentState ->
+                if (currentState is AppDetailsState.Content) {
+                    currentState.copy(installState = InstallState.Installed)
+                } else {
+                    currentState
+                }
+            }
+        } catch (e: CancellationException) {
+            throw e
+        }
+    }
+
     fun getAppDetails() {
         loadingJob?.cancel()
         loadingJob = viewModelScope.launch {
@@ -76,16 +125,17 @@ class AppDetailsViewModel @Inject constructor(
             try {
                 val similarApps = getSimilarAppsUseCase()
                 val showcaseApps = getShowcaseAppsUseCase()
-                getAppDetailsUseCase("fa2e31b8-1234-4cf7-9914-108a170a1b01").collect { appDetails ->
-                    val currentState = _state.value
-                    _state.value = AppDetailsState.Content(
-                        appDetails = appDetails,
-                        similarApps = similarApps,
-                        showcaseApps = showcaseApps,
-                        descriptionCollapsed = (currentState as? AppDetailsState.Content)
-                            ?.descriptionCollapsed ?: false,
-                    )
-                }
+                val appDetails = getAppDetailsUseCase(appId)
+
+                val currentState = _state.value
+                _state.value = AppDetailsState.Content(
+                    appDetails = appDetails,
+                    similarApps = similarApps,
+                    showcaseApps = showcaseApps,
+                    descriptionCollapsed = (currentState as? AppDetailsState.Content)
+                        ?.descriptionCollapsed ?: false,
+                )
+
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

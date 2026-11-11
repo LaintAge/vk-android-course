@@ -1,0 +1,14 @@
+package com.example.trainingproject.data.applist
+
+import com.example.trainingproject.domain.applist.ShowcaseApp
+import javax.inject.Inject
+
+class ShowcaseAppMapper @Inject constructor() {
+    fun toDomain(dto: ShowcaseAppDto): ShowcaseApp = ShowcaseApp(
+        id = dto.id,
+        name = dto.name,
+        iconUrl = dto.iconUrl,
+        category = dto.category,
+        description = dto.description,
+    )
+}

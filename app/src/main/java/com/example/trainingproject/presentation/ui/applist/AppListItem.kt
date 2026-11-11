@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,14 +22,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
-import com.example.trainingproject.domain.appdetails.Category
+import com.example.trainingproject.domain.applist.ShowcaseApp
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 
 @Composable
 fun AppListItem(
     modifier: Modifier = Modifier,
     app: ShowcaseApp,
+    rating: Float? = null,
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -65,6 +68,25 @@ fun AppListItem(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            if (rating != null) {
+                Row (horizontalArrangement = Arrangement.Center) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = "Rating",
+                        tint = MaterialTheme.colorScheme.inversePrimary,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = rating.toString(),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            } else {
+                Text(
+                    text = "---",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
@@ -76,11 +98,14 @@ private fun Preview() {
             id = "similar-app",
             name = "Гильдия Героев: Экшен ММО РПГ",
             iconUrl = "https://static.rustore.ru/imgproxy/APsbtHxkVa4MZ0DXjnIkSwFQ_KVIcqHK9o3gHY6pvOQ/preset:web_app_icon_62/plain/https://static.rustore.ru/apk/393868735/content/ICON/3f605e3e-f5b3-434c-af4d-77bc5f38820e.png@webp",
-            category = Category.GAME,
+            category = "Приложение",
             description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         )
 
     VkEducationTheme {
-        AppListItem(app = app)
+        AppListItem(
+            app = app,
+            onClick = {},
+        )
     }
 }

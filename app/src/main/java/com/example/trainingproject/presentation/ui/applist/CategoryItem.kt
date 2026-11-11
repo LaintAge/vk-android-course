@@ -11,21 +11,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.trainingproject.R
-import com.example.trainingproject.domain.appdetails.Category
-
-@Composable
-private fun getCategoryText(category: Category): String = when (category) {
-    Category.APP -> stringResource(R.string.category_app)
-    Category.GAME -> stringResource(R.string.category_game)
-}
 
 @Composable
 fun CategoryItem(
-    category: Category,
+    category: String,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = getCategoryText(category),
+        text = category,
         style = MaterialTheme.typography.labelSmall,
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))

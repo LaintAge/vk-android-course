@@ -16,8 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.trainingproject.domain.appdetails.AppDetails
-import com.example.trainingproject.domain.appdetails.Category
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.applist.ShowcaseApp
 import com.example.trainingproject.domain.appdetails.SimilarApp
 import com.example.trainingproject.presentation.theme.VkEducationTheme
 
@@ -27,6 +26,7 @@ fun AppDetailsContent(
     onBackClick: () -> Unit,
     onShareClick: () -> Unit,
     onInstallClick: () -> Unit,
+    onDeleteClick: () -> Unit,
     onReadMoreClick: () -> Unit,
     onDeveloperClick: () -> Unit,
     onSimilarAppDownloadClick: (SimilarApp) -> Unit,
@@ -48,7 +48,9 @@ fun AppDetailsContent(
         )
         Spacer(Modifier.height(16.dp))
         InstallButton(
-            onClick = onInstallClick,
+            onInstallClick = onInstallClick,
+            onDeleteClick = onDeleteClick,
+            installState = content.installState,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -64,7 +66,7 @@ fun AppDetailsContent(
         }
         Spacer(Modifier.height(12.dp))
         ScreenshotsList(
-            screenshotUrlList = listOf("1", "2", "3"),
+            screenshotUrlList = appDetails.screenshotUrlList,
             contentPadding = PaddingValues(horizontal = 16.dp),
         )
         Spacer(Modifier.height(12.dp))
@@ -109,7 +111,7 @@ private fun Preview() {
                     id = "fa2e31b8-1234-4cf7-9914-108a170a1b01",
                     name = "Гильдия Героев: Экшен ММО РПГ",
                     developer = "VK Play",
-                    category = Category.GAME,
+                    category = "Приложение",
                     ageRating = 12,
                     size = 223.7f,
                     screenshotUrlList = listOf(
@@ -133,7 +135,7 @@ private fun Preview() {
                         id = "show-app-$index",
                         name = "Гильдия Героев: Экшен ММО РПГ: $index",
                         iconUrl = "https://static.rustore.ru/imgproxy/APsbtHxkVa4MZ0DXjnIkSwFQ_KVIcqHK9o3gHY6pvOQ/preset:web_app_icon_62/plain/https://static.rustore.ru/apk/393868735/content/ICON/3f605e3e-f5b3-434c-af4d-77bc5f38820e.png@webp",
-                        category = Category.GAME,
+                        category = "Приложение",
                         description = "fsdfpksdgkfkgp;ldfkg;ldfgfdgfdg fgdkl;gkdf;gdfgdf"
                     )
                 },
@@ -143,6 +145,7 @@ private fun Preview() {
             onBackClick = {},
             onShareClick = {},
             onInstallClick = {},
+            onDeleteClick = {},
             onDeveloperClick = {},
             onSimilarAppDownloadClick = {},
             onAppClick = {},

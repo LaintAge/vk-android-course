@@ -1,7 +1,7 @@
 package com.example.trainingproject.presentation.ui.applist
 
 import androidx.compose.runtime.Immutable
-import com.example.trainingproject.domain.appdetails.ShowcaseApp
+import com.example.trainingproject.domain.applist.ShowcaseApp
 
 @Immutable
 sealed interface AppListState {
@@ -9,5 +9,6 @@ sealed interface AppListState {
     data object Loading : AppListState
     data class Content(
         val showcaseApps: List<ShowcaseApp>,
+        val ratings: Map<String, Float> = emptyMap(),
     ) : AppListState
 }
